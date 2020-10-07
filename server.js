@@ -1,11 +1,15 @@
-const express = require('express');
+// const express = require('express');
+// const cors = require('cors');
+// const bodyParser = require('body-parser');
+
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import transactions from "./helper.js";
+
 const app = express();
 
-const cors = require('cors');
 app.use(cors());
-
-
-const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
@@ -14,7 +18,7 @@ app.use(bodyParser.urlencoded({
 const port = 4000;
 
 // accessing methods from helper file
-const transactions = require('./helper.js')
+// const transactions = require('./helper.js')
 
 // handle get requests 
 app.get('/balance?*', (req, res) => {

@@ -6,7 +6,7 @@ class Client {
 }
 
 
-var Transactions = function () {
+const Transactions = function() {
     this.clientIdList = [];
     this.clientList = [];
 }
@@ -62,4 +62,4 @@ Transactions.prototype.transfer = function (idFrom, idTo, value) {
     }
 }
 
-module.exports = new Transactions(0, 0);
+export default Transactions;
