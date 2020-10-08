@@ -1,13 +1,10 @@
-"use strict";
-exports.__esModule = true;
-var Client = /** @class */ (function () {
-    function Client(id, value) {
+class Client {
+    constructor(id, value) {
         this.id = id;
         this.balance = value;
     }
-    return Client;
-}());
-var Transactions = function () {
+}
+const Transactions = function () {
     this.clientIdList = [];
     this.clientList = [];
 };
@@ -29,14 +26,14 @@ Transactions.prototype.balance = function (id) {
 Transactions.prototype.deposit = function (id, value) {
     if (this.clientIdList.includes(id)) {
         this.clientList[id].balance = this.clientList[id].balance + value;
-        return { "destination": { "id": "" + id, "balance": this.clientList[id].balance } };
+        return { "destination": { "id": `${id}`, "balance": this.clientList[id].balance } };
     }
     else {
-        var newClient = new Client(id, value);
+        const newClient = new Client(id, value);
         this.clientList[id] = (newClient);
         this.clientList[id].balance = value;
         this.clientIdList.push(id);
-        return { "destination": { "id": "" + id, "balance": value } };
+        return { "destination": { "id": `${id}`, "balance": value } };
     }
 };
 // Withdraw method
@@ -45,7 +42,7 @@ Transactions.prototype.deposit = function (id, value) {
 Transactions.prototype.withdraw = function (id, value) {
     if (this.clientIdList.includes(id)) {
         this.clientList[id].balance = this.clientList[id].balance - value;
-        return { "origin": { "id": "" + id, "balance": this.clientList[id].balance } };
+        return { "origin": { "id": `${id}`, "balance": this.clientList[id].balance } };
     }
     else {
         return false;
@@ -57,10 +54,10 @@ Transactions.prototype.withdraw = function (id, value) {
 // output String (type of Json) => (new balance, id) // return false if cliend is not found
 Transactions.prototype.transfer = function (idFrom, idTo, value) {
     if (this.clientIdList.includes(idFrom)) {
-        return "{\"origin\":" + JSON.stringify(this.withdraw(idFrom, value).origin) + ", \"destination\": " + JSON.stringify(this.deposit(idTo, value).destination) + "}";
+        return `{"origin":${JSON.stringify(this.withdraw(idFrom, value).origin)}, "destination": ${JSON.stringify(this.deposit(idTo, value).destination)}}`;
     }
     else {
         return false;
     }
 };
-exports["default"] = Transactions;
+export default Transactions;
